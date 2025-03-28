@@ -1,6 +1,6 @@
-const axios = require("axios");
-const Crypto = require("../models/Crypto.js");
-const redis = require("../lib/redis.js");
+import axios from "axios";
+import Crypto from "../models/Crypto.js";
+import redis from "../lib/redis.js";
 
 async function getCryptoData(coin) {
   const url = `https://api.coinpaprika.com/v1/tickers/${coin}`;
@@ -35,4 +35,4 @@ async function fetchCryptoPrices() {
   return cryptoData;
 }
 
-module.exports = { getCryptoData, fetchCryptoPrices };
+export { getCryptoData, fetchCryptoPrices };

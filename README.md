@@ -50,8 +50,6 @@ npm install
 
 ```env
 TOKEN=your-discord-bot-token
-TEST_SERVER=your-test-server-id
-SUPPORT_SERVER=your-discord-server-invite-link
 MONGO_URI=mongodb-connection-string
 REDIS_HOST=redis-url
 REDIS_PORT=redis-port

@@ -1,9 +1,5 @@
-const {
-  EmbedBuilder,
-  SlashCommandBuilder,
-  MessageFlags,
-} = require("discord.js");
-const { fetchCryptoPrices } = require("../../../utils/getMarketData.js");
+import { SlashCommandBuilder, EmbedBuilder, MessageFlags } from "discord.js";
+import { fetchCryptoPrices } from "../../../utils/getMarketData.js";
 
 async function displayPrice() {
   const data = await fetchCryptoPrices();
@@ -23,7 +19,7 @@ async function displayPrice() {
   return response
 }
 
-module.exports = {
+export default {
   data: new SlashCommandBuilder()
     .setName("market")
     .setDescription("Shows the available cryptocurrencies and their prices."),

@@ -1,9 +1,10 @@
-const Crypto = require("../models/Crypto.js");
-
-const { getCryptoData } = require("../utils/getMarketData.js");
+import Crypto from "../models/Crypto.js";
+import { getCryptoData } from "../utils/getMarketData.js";
 
 async function updateMarketData() {
-  const data = await Crypto.find({}).select("id -_id").lean();
+  const data = await Crypto.find({ isAdded: { $ne: true } })
+    .select("id -_id")
+    .lean();
   if (!data || data.length === 0) return;
   const coins = data.map((coin) => coin.id);
   const cryptoData = await Promise.all(
@@ -19,4 +20,4 @@ async function updateMarketData() {
   }
 }
 
-module.exports = updateMarketData;
+export default updateMarketData;

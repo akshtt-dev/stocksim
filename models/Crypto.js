@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const cryptoSchema = new mongoose.Schema({
   id: {
@@ -24,8 +24,12 @@ const cryptoSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  isAdded: {
+    type: Boolean,
+    default: false,
+  },
 });
 
-const Crypto = mongoose.model("Crypto", cryptoSchema);
+const Crypto = mongoose.models.Crypto || mongoose.model("Crypto", cryptoSchema);
 
-module.exports = Crypto;
+export default Crypto;

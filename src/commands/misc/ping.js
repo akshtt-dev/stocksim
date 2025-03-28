@@ -1,5 +1,6 @@
-const { MessageFlags, SlashCommandBuilder } = require("discord.js");
-module.exports = {
+import { MessageFlags, SlashCommandBuilder } from "discord.js";
+import config from "../../../config.js";
+export default {
   data: new SlashCommandBuilder()
     .setName("ping")
     .setDescription("Replies with ping in ms"),
@@ -8,7 +9,7 @@ module.exports = {
     const ping = interaction.client.ws.ping;
     if (!ping) return interaction.editReply("Pong! No ping data available.");
     await interaction.editReply({
-      content: `<:ping:1354891444330041617> Pong! \`${ping}ms\``,
+      content: `${config.emoji.ping} Pong! \`${ping}ms\``,
       flags: MessageFlags.Ephemeral,
     });
   },

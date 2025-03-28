@@ -1,9 +1,12 @@
-require("dotenv").config();
-const { Client, GatewayIntentBits } = require("discord.js");
-const { CommandHandler } = require("djs-commander");
-const path = require("path");
-const redis = require("../lib/redis.js");
-const connectDB = require("../lib/connectDB.js");
+import { Client, GatewayIntentBits } from "discord.js";
+import { CommandKit } from "commandkit";
+import { fileURLToPath } from "url";
+import path from "path";
+import dotenv from "dotenv";
+dotenv.config();
+import redis from "../lib/redis.js";
+import connectDB from "../lib/connectDB.js";
+import config from "../config.js";
 
 // Connect To Redis
 (async () => {
@@ -27,12 +30,20 @@ const client = new Client({
     GatewayIntentBits.GuildMembers,
   ],
 });
-new CommandHandler({
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+
+new CommandKit({
   client,
   commandsPath: path.join(__dirname, "commands"),
   eventsPath: path.join(__dirname, "events"),
-  testServer: process.env.TEST_SERVER,
+  // validationsPath: path.join(__dirname, 'validations'),
+  devGuildIds: config.devGuildIds,
+  devUserIds: config.devUserIds,
+  devRoleIds: config.devRoleIds,
+  // skipBuiltInValidations: true,
+  bulkRegister: true,
 });
 
 client.login(process.env.TOKEN);
-

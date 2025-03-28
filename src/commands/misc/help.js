@@ -1,19 +1,7 @@
-require("dotenv").config();
-const {
-  SlashCommandBuilder,
-  ActionRowBuilder,
-  StringSelectMenuBuilder,
-  MessageFlags,
-  EmbedBuilder,
-} = require("discord.js");
+import { SlashCommandBuilder, ActionRowBuilder, StringSelectMenuBuilder, MessageFlags, EmbedBuilder } from "discord.js";
+import config from "../../../config.js";
 
-const {
-  miscCommands,
-  tradeCommands,
-  marketCommands,
-} = require("../../events/interactionCreate/helpSelect.js");
-
-module.exports = {
+export default {
   data: new SlashCommandBuilder()
     .setName("help")
     .setDescription("Replies with a list of available commands"),
@@ -40,6 +28,16 @@ module.exports = {
             description: "See a list of market commands",
             value: "market",
           },
+          {
+            label: "Economy",
+            description: "See a list of economy commands",
+            value: "economy",
+          },
+          {
+            label: "Account",
+            description: "See a list of account commands",
+            value: "account",
+          }
         ]);
 
       const row = new ActionRowBuilder().addComponents(selectMenu);
@@ -52,7 +50,7 @@ module.exports = {
         .setThumbnail(interaction.client.user.displayAvatarURL())
         .setColor(0x0099ff)
         .setDescription(
-          `Hello, I am **${interaction.client.user.username}**!\n\nI am here to assist you with various commands. Please select a category from the dropdown menu below to see the available commands.\n\n**Support Server**: [Join](${process.env.SUPPORT_SERVER})`
+          `Hello, I am **${interaction.client.user.username}**!\n\nI am here to assist you with various commands. Please select a category from the dropdown menu below to see the available commands.\n\n**Support Server**: [Join](${config.supportGuildLink})`
         )
         .setFooter({
           text: "Use the command `/help` to see this message again.",
